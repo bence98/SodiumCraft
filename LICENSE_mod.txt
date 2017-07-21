@@ -1,0 +1,4 @@
+--- Mod made by CsokiCraft ---
+
+Source code license can be found at: http://csokicraft.agyklub.hu/licenses/LICENSE-c3po-v1.txt
+Licence of the Original Release can be found at: http://csokicraft.agyklub.hu/licenses/LICENSE-ccml-v1.txt

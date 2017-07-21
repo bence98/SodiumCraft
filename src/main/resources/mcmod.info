@@ -1,0 +1,16 @@
+[
+{
+  "modid": "sodiumcraft",
+  "name": "SodiumCraft",
+  "description": "Gives Mekanism sodium a purpose.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["CsokiCraft"],
+  "credits": "Aidancbrady for Mekanism and TeamCoFH for ThermalExp (additional dependency)",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
