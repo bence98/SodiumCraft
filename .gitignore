@@ -20,3 +20,7 @@ build
 # other
 eclipse
 run
+
+libs
+libs-obf
+libs-dis
