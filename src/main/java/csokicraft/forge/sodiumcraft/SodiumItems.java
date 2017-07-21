@@ -1,4 +1,4 @@
-package csokicraft.forge17.sodiumcraft;
+package csokicraft.forge.sodiumcraft;
 
 import net.minecraft.item.*;
 

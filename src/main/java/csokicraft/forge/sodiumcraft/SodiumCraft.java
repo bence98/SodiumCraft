@@ -1,4 +1,4 @@
-package csokicraft.forge17.sodiumcraft;
+package csokicraft.forge.sodiumcraft;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.*;
@@ -6,6 +6,8 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.*;
 import net.minecraftforge.oredict.*;
+
+import static csokicraft.forge.sodiumcraft.SodiumItems.*;
 
 import java.util.*;
 
@@ -16,33 +18,36 @@ import cofh.thermalexpansion.ThermalExpansion;
 import cofh.thermalexpansion.init.TEItems;
 import cofh.thermalexpansion.util.managers.machine.SmelterManager;
 import cofh.thermalfoundation.init.TFItems;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderException;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.IForgeRegistry;
 import mekanism.api.gas.*;
 import mekanism.common.MekanismItems;
 
-import static csokicraft.forge17.sodiumcraft.SodiumItems.*;
-
-@Mod(modid = SodiumCraft.MODID, version = SodiumCraft.VERSION, dependencies="required-after:Mekanism;after:thermalexpansion")
+@Mod(modid = SodiumCraft.MODID, version = SodiumCraft.VERSION, dependencies="required-after:mekanism;after:thermalexpansion")
+@EventBusSubscriber
 public class SodiumCraft
 {
 	public static final String MODID = "sodiumcraft";
-	public static final String VERSION = "1.2";
+	public static final String VERSION = "1.2.1";
 
-	@SidedProxy(serverSide="csokicraft.forge17.sodiumcraft.CommonProxy", clientSide="csokicraft.forge17.sodiumcraft.ClientProxy")
+	@SidedProxy(serverSide="csokicraft.forge.sodiumcraft.CommonProxy", clientSide="csokicraft.forge.sodiumcraft.ClientProxy")
 	public static CommonProxy proxy;
-	public static Item itemSodium = new ItemSodium().setCreativeTab(CreativeTabs.MATERIALS);
+	public static Item itemSodium = new ItemSodium().setCreativeTab(CreativeTabs.MATERIALS).setRegistryName("itemSodium");
 
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent e){
 		if(Loader.isModLoaded("thermalexpansion")){
-			if(!ThermalExpansion.VERSION.startsWith("5.1")){
-				throw new LoaderException("ThermalExpansion 5.1 is required!");
+			if(!ThermalExpansion.VERSION.startsWith("5.2")){
+				throw new LoaderException("ThermalExpansion 5.2 is required!");
 			}
 		}
 	}
@@ -50,7 +55,6 @@ public class SodiumCraft
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		GameRegistry.registerItem(itemSodium, "itemSodium");
 		proxy.registerModels();
 		
 		NBTTagCompound imcTag;
@@ -59,14 +63,14 @@ public class SodiumCraft
 		imcTag = new NBTTagCompound();
 		imcTag.setTag("input", new GasStack(GasRegistry.getGas("sodium"), 100).write(new NBTTagCompound()));
 		imcTag.setTag("output", Na.writeToNBT(new NBTTagCompound()));
-		FMLInterModComms.sendMessage("Mekanism", "ChemicalCrystallizerRecipe", imcTag);
+		FMLInterModComms.sendMessage("mekanism", "ChemicalCrystallizerRecipe", imcTag);
 		
 		//Sodium hydration
 		imcTag = new NBTTagCompound();
 		imcTag.setTag("input", Na.writeToNBT(new NBTTagCompound()));
 		imcTag.setTag("gasType", new GasStack(GasRegistry.getGas("water"), 100).write(new NBTTagCompound()));
 		imcTag.setTag("output", NaOH.writeToNBT(new NBTTagCompound()));
-		FMLInterModComms.sendMessage("Mekanism", "ChemicalInjectionChamberRecipe", imcTag);
+		FMLInterModComms.sendMessage("mekanism", "ChemicalInjectionChamberRecipe", imcTag);
 		
 		//Sodium sulfurization
 		GameRegistry.addRecipe(new ShapelessOreRecipe(NaS, Na, "dustSulfur"));
@@ -77,7 +81,7 @@ public class SodiumCraft
 			imcTag.setTag("input", new ItemStack(Blocks.LOG, 1, i).writeToNBT(new NBTTagCompound()));
 			imcTag.setTag("gasType", new GasStack(GasRegistry.getGas("water"), 100).write(new NBTTagCompound()));
 			imcTag.setTag("output", aqWood.writeToNBT(new NBTTagCompound()));
-			FMLInterModComms.sendMessage("Mekanism", "ChemicalInjectionChamberRecipe", imcTag);
+			FMLInterModComms.sendMessage("mekanism", "ChemicalInjectionChamberRecipe", imcTag);
 		}
 		
 		for(int i=0;i<2;i++){
@@ -85,7 +89,7 @@ public class SodiumCraft
 			imcTag.setTag("input", new ItemStack(Blocks.LOG2, 1, i).writeToNBT(new NBTTagCompound()));
 			imcTag.setTag("gasType", new GasStack(GasRegistry.getGas("water"), 100).write(new NBTTagCompound()));
 			imcTag.setTag("output", aqWood.writeToNBT(new NBTTagCompound()));
-			FMLInterModComms.sendMessage("Mekanism", "ChemicalInjectionChamberRecipe", imcTag);
+			FMLInterModComms.sendMessage("mekanism", "ChemicalInjectionChamberRecipe", imcTag);
 		}
 		
 		//Sodium bicarbonate
@@ -93,13 +97,13 @@ public class SodiumCraft
 		imcTag.setTag("input", Na2CO3.writeToNBT(new NBTTagCompound()));
 		imcTag.setTag("gasType", new GasStack(GasRegistry.getGas("water"), 100).write(new NBTTagCompound()));
 		imcTag.setTag("output", NaHCO3.writeToNBT(new NBTTagCompound()));
-		FMLInterModComms.sendMessage("Mekanism", "ChemicalInjectionChamberRecipe", imcTag);
+		FMLInterModComms.sendMessage("mekanism", "ChemicalInjectionChamberRecipe", imcTag);
 		
 		//Nitric acid production
 		imcTag = new NBTTagCompound();
 		imcTag.setTag("input", PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER).writeToNBT(new NBTTagCompound()));
 		imcTag.setTag("output", HNO3.writeToNBT(new NBTTagCompound()));
-		FMLInterModComms.sendMessage("Mekanism", "EnrichmentChamberRecipe", imcTag);
+		FMLInterModComms.sendMessage("mekanism", "EnrichmentChamberRecipe", imcTag);
 		//And usage
 		GameRegistry.addShapelessRecipe(NaNO3, NaOH, HNO3);
 		
@@ -166,5 +170,11 @@ public class SodiumCraft
 			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemRegistry.doughItem, 2), NaHCO3, "foodFlour", "toolMixingbowl", "listAllwater"));
 			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemRegistry.doughItem, 2), NaHCO3, "dustWheat", "toolMixingbowl", "listAllwater"));
 		}
+	}
+	
+	@SubscribeEvent
+	public static void registerItems(RegistryEvent.Register<Item> evt){
+		IForgeRegistry<Item> reg=evt.getRegistry();
+		reg.register(itemSodium);
 	}
 }
