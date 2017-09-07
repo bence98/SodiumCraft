@@ -6,6 +6,7 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.*;
 import net.minecraftforge.oredict.*;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import static csokicraft.forge.sodiumcraft.SodiumItems.*;
 
@@ -13,9 +14,8 @@ import java.util.*;
 
 import com.pam.harvestcraft.item.ItemRegistry;
 
-import cofh.lib.util.helpers.ItemHelper;
+import cofh.core.util.helpers.ItemHelper;
 import cofh.thermalexpansion.ThermalExpansion;
-import cofh.thermalexpansion.init.TEItems;
 import cofh.thermalexpansion.util.managers.machine.SmelterManager;
 import cofh.thermalfoundation.init.TFItems;
 import net.minecraftforge.event.RegistryEvent;
@@ -28,11 +28,10 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.registry.IForgeRegistry;
 import mekanism.api.gas.*;
 import mekanism.common.MekanismItems;
 
-@Mod(modid = SodiumCraft.MODID, version = SodiumCraft.VERSION, dependencies="required-after:mekanism;after:thermalexpansion")
+@Mod(modid = SodiumCraft.MODID, version = SodiumCraft.VERSION, dependencies="required-after:mekanism;required-after:thermalexpansion")
 @EventBusSubscriber
 public class SodiumCraft
 {
@@ -46,8 +45,8 @@ public class SodiumCraft
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent e){
 		if(Loader.isModLoaded("thermalexpansion")){
-			if(!ThermalExpansion.VERSION.startsWith("5.2")){
-				throw new LoaderException("ThermalExpansion 5.2 is required!");
+			if(!ThermalExpansion.VERSION.startsWith("5.3")){
+				throw new LoaderException("ThermalExpansion 5.3 is required!");
 			}
 		}
 	}
@@ -115,56 +114,49 @@ public class SodiumCraft
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.GUNPOWDER), NaNO3, Items.COAL);
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.GUNPOWDER, 2), NaNO3, MekanismItems.Substrate);
 		
-		if(Loader.isModLoaded("thermalexpansion")){
-			//Aluminum processing
-			List<ItemStack> aluOres = new ArrayList<ItemStack>(),
-							aluBars = new ArrayList<ItemStack>();
-			aluOres.addAll(OreDictionary.getOres("oreAluminum"));
-			aluOres.addAll(OreDictionary.getOres("oreAluminium"));
-			aluBars.addAll(OreDictionary.getOres("ingotAluminum"));
-			aluBars.addAll(OreDictionary.getOres("ingotAluminium"));
-			
-			if(!aluBars.isEmpty())
-				for(ItemStack aluOre:aluOres)
-					SmelterManager.addRecipe(2400, NaOH, aluOre, ItemHelper.cloneStack(aluBars.get(0), 3), new ItemStack(TFItems.itemMaterial, 1, 865), 50);
-			
-			//Sodium carbonation
-			SmelterManager.addRecipe(800, NaOH, OreDictionary.getOres("dustCoal").get(0), Na2CO3);
-			
-			//Baking with soda
-			SmelterManager.addRecipe(800, NaHCO3, new ItemStack(Items.WHEAT), new ItemStack(Items.BREAD, 2));
-			
-			//Sodium carbonate glass
-			SmelterManager.addRecipe(800, Na2CO3, new ItemStack(Blocks.SAND), new ItemStack(Blocks.GLASS, 2), NaNO3, 25);
-			SmelterManager.addRecipe(800, Na2CO3, new ItemStack(TFItems.itemMaterial, 1, 864), new ItemStack(Blocks.GLASS), new ItemStack(Blocks.GLASS), 50);
-			
-			//Flesh processing
-			for(int i=0;i<5;i++)
-				SmelterManager.addRecipe(800, new ItemStack(itemSodium, 16, 1), new ItemStack(Items.SKULL, 1, i), new ItemStack(Items.ROTTEN_FLESH, 16));
-			SmelterManager.addRecipe(800, new ItemStack(itemSodium, 8, 1), new ItemStack(Items.SPIDER_EYE), new ItemStack(Items.ROTTEN_FLESH, 8));
-			SmelterManager.addRecipe(800, new ItemStack(itemSodium, 12, 1), new ItemStack(Items.FERMENTED_SPIDER_EYE), new ItemStack(Items.ROTTEN_FLESH, 12));
-			/*
-			//Potato battery Overhauled Edition
-			GameRegistry.addRecipe(new ShapedOreRecipe(TEItems.capacitorPotato,
-					"scs", "sps", "scs",
-					's', NaOH,
-					'p', Items.POTATO,
-					'c', "nuggetCopper"
-				));
-			
-			GameRegistry.addRecipe(new ShapedOreRecipe(TEItems.capacitorPotato,
-					"scs", "sps", "scs",
-					's', NaOH,
-					'p', Items.POISONOUS_POTATO,
-					'c', "nuggetCopper"
-				));
-			*/
-		}else{
-			//fallback vanilla recipes
-			GameRegistry.addShapelessRecipe(Na2CO3, Items.COAL, Items.COAL, NaOH);
-			GameRegistry.addShapelessRecipe(new ItemStack(Items.BREAD, 2), NaHCO3, NaHCO3, new ItemStack(Items.WHEAT));
-			GameRegistry.addShapelessRecipe(new ItemStack(Blocks.GLASS, 1), Na2CO3, Na2CO3, new ItemStack(Blocks.SAND));
-		}
+		//Aluminum processing
+		List<ItemStack> aluOres = new ArrayList<ItemStack>(),
+						aluBars = new ArrayList<ItemStack>();
+		aluOres.addAll(OreDictionary.getOres("oreAluminum"));
+		aluOres.addAll(OreDictionary.getOres("oreAluminium"));
+		aluBars.addAll(OreDictionary.getOres("ingotAluminum"));
+		aluBars.addAll(OreDictionary.getOres("ingotAluminium"));
+		
+		if(!aluBars.isEmpty())
+			for(ItemStack aluOre:aluOres)
+				SmelterManager.addRecipe(2400, NaOH, aluOre, ItemHelper.cloneStack(aluBars.get(0), 3), new ItemStack(TFItems.itemMaterial, 1, 865), 50);
+		
+		//Sodium carbonation
+		SmelterManager.addRecipe(800, NaOH, OreDictionary.getOres("dustCoal").get(0), Na2CO3);
+		
+		//Baking with soda
+		SmelterManager.addRecipe(800, NaHCO3, new ItemStack(Items.WHEAT), new ItemStack(Items.BREAD, 2));
+		
+		//Sodium carbonate glass
+		SmelterManager.addRecipe(800, Na2CO3, new ItemStack(Blocks.SAND), new ItemStack(Blocks.GLASS, 2), NaNO3, 25);
+		SmelterManager.addRecipe(800, Na2CO3, new ItemStack(TFItems.itemMaterial, 1, 864), new ItemStack(Blocks.GLASS), new ItemStack(Blocks.GLASS), 50);
+		
+		//Flesh processing
+		for(int i=0;i<5;i++)
+			SmelterManager.addRecipe(800, new ItemStack(itemSodium, 16, 1), new ItemStack(Items.SKULL, 1, i), new ItemStack(Items.ROTTEN_FLESH, 16));
+		SmelterManager.addRecipe(800, new ItemStack(itemSodium, 8, 1), new ItemStack(Items.SPIDER_EYE), new ItemStack(Items.ROTTEN_FLESH, 8));
+		SmelterManager.addRecipe(800, new ItemStack(itemSodium, 12, 1), new ItemStack(Items.FERMENTED_SPIDER_EYE), new ItemStack(Items.ROTTEN_FLESH, 12));
+		/*
+		//Potato battery Overhauled Edition
+		GameRegistry.addRecipe(new ShapedOreRecipe(TEItems.capacitorPotato,
+				"scs", "sps", "scs",
+				's', NaOH,
+				'p', Items.POTATO,
+				'c', "nuggetCopper"
+			));
+		
+		GameRegistry.addRecipe(new ShapedOreRecipe(TEItems.capacitorPotato,
+				"scs", "sps", "scs",
+				's', NaOH,
+				'p', Items.POISONOUS_POTATO,
+				'c', "nuggetCopper"
+			));
+		*/
 		
 		if(Loader.isModLoaded("harvestcraft")){
 			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemRegistry.doughItem, 2), NaHCO3, "foodFlour", "toolMixingbowl", "listAllwater"));
