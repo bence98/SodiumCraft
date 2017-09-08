@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "sodiumcraft:itemSodium",
+    "data": 6
+  },
+  "ingredients": [
+    {
+      "item": "sodiumcraft:itemSodium",
+      "data": 1
+    },
+    {
+      "item": "sodiumcraft:itemSodium",
+      "data": 7
+    }
+  ]
+  "type": "crafting_shapeless",
+}

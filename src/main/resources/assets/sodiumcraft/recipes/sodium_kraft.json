@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "minecraft:paper",
+    "count": 3
+  },
+  "ingredients": [
+    {
+      "item": "sodiumcraft:itemSodium",
+      "data": 1
+    },
+    {
+      "item": "sodiumcraft:itemSodium",
+      "data": 2
+    },
+    {
+      "item": "sodiumcraft:itemSodium",
+      "data": 5
+    }
+  ]
+  "type": "crafting_shapeless",
+}

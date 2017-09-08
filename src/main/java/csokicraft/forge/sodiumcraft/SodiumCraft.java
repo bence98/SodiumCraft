@@ -72,7 +72,7 @@ public class SodiumCraft
 		FMLInterModComms.sendMessage("mekanism", "ChemicalInjectionChamberRecipe", imcTag);
 		
 		//Sodium sulfurization
-		GameRegistry.addRecipe(new ShapelessOreRecipe(NaS, Na, "dustSulfur"));
+		//sodium_sulfide.json
 		
 		//wood steaming
 		for(int i=0;i<4;i++){
@@ -104,15 +104,15 @@ public class SodiumCraft
 		imcTag.setTag("output", HNO3.writeToNBT(new NBTTagCompound()));
 		FMLInterModComms.sendMessage("mekanism", "EnrichmentChamberRecipe", imcTag);
 		//And usage
-		GameRegistry.addShapelessRecipe(NaNO3, NaOH, HNO3);
+		//sodium_nitrate.json
 		
 		//Cellulose extraction, loosely based on the "Kraft process"
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.PAPER, 3), NaOH, NaS, aqWood);
+		//sodium_kraft.json
 		
 		//Sodium nitrate uses
 		OreDictionary.registerOre("dustSaltpeter", NaNO3);
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.GUNPOWDER), NaNO3, Items.COAL);
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.GUNPOWDER, 2), NaNO3, MekanismItems.Substrate);
+		/*GameRegistry.addShapelessRecipe(new ItemStack(Items.GUNPOWDER), NaNO3, Items.COAL);
+		GameRegistry.addShapelessRecipe(new ItemStack(Items.GUNPOWDER, 2), NaNO3, MekanismItems.Substrate);*/
 		
 		//Aluminum processing
 		List<ItemStack> aluOres = new ArrayList<ItemStack>(),
@@ -159,8 +159,8 @@ public class SodiumCraft
 		*/
 		
 		if(Loader.isModLoaded("harvestcraft")){
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemRegistry.doughItem, 2), NaHCO3, "foodFlour", "toolMixingbowl", "listAllwater"));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemRegistry.doughItem, 2), NaHCO3, "dustWheat", "toolMixingbowl", "listAllwater"));
+			/*GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemRegistry.doughItem, 2), NaHCO3, "foodFlour", "toolMixingbowl", "listAllwater"));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemRegistry.doughItem, 2), NaHCO3, "dustWheat", "toolMixingbowl", "listAllwater"));*/
 		}
 	}
 	

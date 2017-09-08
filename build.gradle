@@ -20,6 +20,13 @@ compileJava {
     sourceCompatibility = targetCompatibility = "1.6"
 }
 
+repositories {
+    maven {
+        name = "CoFH Maven"
+        url = "http://maven.covers1624.net"
+    }
+}
+
 minecraft {
     version = "1.12-14.21.1.2419"
     runDir = "run"
@@ -34,6 +41,7 @@ minecraft {
 }
 
 dependencies {
+    deobfCompile "cofh:RedstoneFlux:1.12-2.0.1.2:universal"
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"
