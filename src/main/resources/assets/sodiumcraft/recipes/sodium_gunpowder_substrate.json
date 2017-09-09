@@ -1,12 +1,12 @@
 {
   "result": {
-    "item": "sodiumcraft:itemSodium",
-    "data": 2
+    "item": "minecraft:gunpowder",
+    "count": 2
   },
   "ingredients": [
     {
       "item": "sodiumcraft:sodium",
-      "data": 0
+      "data": 6
     },
     {
       "type": "forge:ore_dict",

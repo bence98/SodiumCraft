@@ -12,26 +12,20 @@ import static csokicraft.forge.sodiumcraft.SodiumItems.*;
 
 import java.util.*;
 
-import com.pam.harvestcraft.item.ItemRegistry;
-
 import cofh.core.util.helpers.ItemHelper;
-import cofh.thermalexpansion.ThermalExpansion;
 import cofh.thermalexpansion.util.managers.machine.SmelterManager;
 import cofh.thermalfoundation.init.TFItems;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.LoaderException;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import mekanism.api.gas.*;
-import mekanism.common.MekanismItems;
 
-@Mod(modid = SodiumCraft.MODID, version = SodiumCraft.VERSION, dependencies="required-after:mekanism;required-after:thermalexpansion")
+@Mod(modid = SodiumCraft.MODID, version = SodiumCraft.VERSION, dependencies="required-after:mekanism@[9.4,);required-after:thermalexpansion@[5.3,)")
 @EventBusSubscriber
 public class SodiumCraft
 {
@@ -40,15 +34,11 @@ public class SodiumCraft
 
 	@SidedProxy(serverSide="csokicraft.forge.sodiumcraft.CommonProxy", clientSide="csokicraft.forge.sodiumcraft.ClientProxy")
 	public static CommonProxy proxy;
-	public static Item itemSodium = new ItemSodium().setCreativeTab(CreativeTabs.MATERIALS).setRegistryName("itemSodium");
+	public static Item itemSodium = new ItemSodium().setCreativeTab(CreativeTabs.MATERIALS).setRegistryName("sodium");
 
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent e){
-		if(Loader.isModLoaded("thermalexpansion")){
-			if(!ThermalExpansion.VERSION.startsWith("5.3")){
-				throw new LoaderException("ThermalExpansion 5.3 is required!");
-			}
-		}
+		
 	}
 
 	@EventHandler

@@ -1,15 +1,15 @@
 {
   "result": {
-    "item": "sodiumcraft:itemSodium",
+    "item": "sodiumcraft:sodium",
     "data": 6
   },
   "ingredients": [
     {
-      "item": "sodiumcraft:itemSodium",
+      "item": "sodiumcraft:sodium",
       "data": 1
     },
     {
-      "item": "sodiumcraft:itemSodium",
+      "item": "sodiumcraft:sodium",
       "data": 7
     }
   ]
