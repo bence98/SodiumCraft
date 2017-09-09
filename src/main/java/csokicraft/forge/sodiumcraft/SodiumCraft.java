@@ -15,8 +15,8 @@ import java.util.*;
 import cofh.core.util.helpers.ItemHelper;
 import cofh.thermalexpansion.util.managers.machine.SmelterManager;
 import cofh.thermalfoundation.init.TFItems;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -44,8 +44,6 @@ public class SodiumCraft
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		proxy.registerModels();
-		
 		NBTTagCompound imcTag;
 		
 		//Sodium crystallization
@@ -60,9 +58,6 @@ public class SodiumCraft
 		imcTag.setTag("gasType", new GasStack(GasRegistry.getGas("water"), 100).write(new NBTTagCompound()));
 		imcTag.setTag("output", NaOH.writeToNBT(new NBTTagCompound()));
 		FMLInterModComms.sendMessage("mekanism", "ChemicalInjectionChamberRecipe", imcTag);
-		
-		//Sodium sulfurization
-		//sodium_sulfide.json
 		
 		//wood steaming
 		for(int i=0;i<4;i++){
@@ -93,16 +88,9 @@ public class SodiumCraft
 		imcTag.setTag("input", PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER).writeToNBT(new NBTTagCompound()));
 		imcTag.setTag("output", HNO3.writeToNBT(new NBTTagCompound()));
 		FMLInterModComms.sendMessage("mekanism", "EnrichmentChamberRecipe", imcTag);
-		//And usage
-		//sodium_nitrate.json
 		
-		//Cellulose extraction, loosely based on the "Kraft process"
-		//sodium_kraft.json
-		
-		//Sodium nitrate uses
+		//Sodium nitrate oredict
 		OreDictionary.registerOre("dustSaltpeter", NaNO3);
-		/*GameRegistry.addShapelessRecipe(new ItemStack(Items.GUNPOWDER), NaNO3, Items.COAL);
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.GUNPOWDER, 2), NaNO3, MekanismItems.Substrate);*/
 		
 		//Aluminum processing
 		List<ItemStack> aluOres = new ArrayList<ItemStack>(),
@@ -147,16 +135,16 @@ public class SodiumCraft
 				'c', "nuggetCopper"
 			));
 		*/
-		
-		if(Loader.isModLoaded("harvestcraft")){
-			/*GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemRegistry.doughItem, 2), NaHCO3, "foodFlour", "toolMixingbowl", "listAllwater"));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemRegistry.doughItem, 2), NaHCO3, "dustWheat", "toolMixingbowl", "listAllwater"));*/
-		}
 	}
 	
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> evt){
 		IForgeRegistry<Item> reg=evt.getRegistry();
 		reg.register(itemSodium);
+	}
+	
+	@SubscribeEvent
+	public static void loadModels(ModelRegistryEvent evt){
+		proxy.registerModels();
 	}
 }

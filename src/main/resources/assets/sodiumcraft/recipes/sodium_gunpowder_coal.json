@@ -9,7 +9,8 @@
       "data": 6
     },
     {
-      "item": "mekanism:substrate"
+      "item": "minecraft:coal",
+      "data": 0
     }
   ],
   "type": "minecraft:crafting_shapeless"

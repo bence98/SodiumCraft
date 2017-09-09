@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "harvestcraft:doughitem",
+    "count": 2
+  },
+  "ingredients": [
+    {
+      "item": "sodiumcraft:sodium",
+      "data": 3
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "dustWheat"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "listAllwater"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "toolMixingbowl"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

@@ -12,6 +12,6 @@
       "item": "sodiumcraft:sodium",
       "data": 7
     }
-  ]
-  "type": "crafting_shapeless",
+  ],
+  "type": "minecraft:crafting_shapeless"
 }

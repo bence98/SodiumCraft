@@ -23,8 +23,9 @@ public class ItemSodium extends Item{
 	
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> l){
-		for(int i=0;i<META_COUNT;i++){
-			l.add(new ItemStack(this, 1, i));
-		}
+		if(tab.equals(getCreativeTab()))
+			for(int i=0;i<META_COUNT;i++){
+				l.add(new ItemStack(this, 1, i));
+			}
 	}
 }

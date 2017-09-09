@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "sodiumcraft:itemSodium",
+    "item": "sodiumcraft:sodium",
     "data": 2
   },
   "ingredients": [
@@ -12,6 +12,6 @@
       "type": "forge:ore_dict",
       "ore": "dustSulfur"
     }
-  ]
-  "type": "forge:ore_shapeless",
+  ],
+  "type": "forge:ore_shapeless"
 }
