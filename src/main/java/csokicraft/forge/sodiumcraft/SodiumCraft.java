@@ -3,8 +3,10 @@ package csokicraft.forge.sodiumcraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.*;
 import net.minecraft.item.*;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.*;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.*;
 import net.minecraftforge.registries.IForgeRegistry;
 
@@ -12,11 +14,14 @@ import static csokicraft.forge.sodiumcraft.SodiumItems.*;
 
 import java.util.*;
 
+import com.pam.harvestcraft.item.ItemRegistry;
+
 import cofh.core.util.helpers.ItemHelper;
 import cofh.thermalexpansion.util.managers.machine.SmelterManager;
 import cofh.thermalfoundation.init.TFItems;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -141,6 +146,25 @@ public class SodiumCraft
 	public static void registerItems(RegistryEvent.Register<Item> evt){
 		IForgeRegistry<Item> reg=evt.getRegistry();
 		reg.register(itemSodium);
+	}
+	
+	@SubscribeEvent
+	public static void registerRecipes(RegistryEvent.Register<IRecipe> evt){
+		if(Loader.isModLoaded("harvestcraft")){
+			IForgeRegistry<IRecipe> reg=evt.getRegistry();
+			
+			ShapelessOreRecipe recFoodFlour=new ShapelessOreRecipe(new ResourceLocation(MODID, "dough_foodflour"),
+					new ItemStack(ItemRegistry.doughItem, 2),
+					NaHCO3, "listAllwater", "toolMixingbowl", "foodFlour");
+			recFoodFlour.setRegistryName(recFoodFlour.getGroup());
+			reg.register(recFoodFlour);
+
+			ShapelessOreRecipe recDustWheat=new ShapelessOreRecipe(new ResourceLocation(MODID, "dough_dustwheat"),
+					new ItemStack(ItemRegistry.doughItem, 2),
+					NaHCO3, "listAllwater", "toolMixingbowl", "dustWheat");
+			recDustWheat.setRegistryName(recDustWheat.getGroup());
+			reg.register(recDustWheat);
+		}
 	}
 	
 	@SubscribeEvent
