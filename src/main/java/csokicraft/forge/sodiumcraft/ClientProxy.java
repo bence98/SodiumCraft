@@ -7,11 +7,13 @@ public class ClientProxy extends CommonProxy{
 	
 	@Override
 	public void registerModels(){
-		//ItemModelMesher imm=Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
 		for(int meta=0;meta<ItemSodium.META_COUNT;meta++){
 			ModelResourceLocation res_loc=new ModelResourceLocation(SodiumCraft.MODID+":sodium."+meta, "inventory");
-			//imm.register(SodiumCraft.itemSodium, meta, res_loc);
 			ModelLoader.setCustomModelResourceLocation(SodiumCraft.itemSodium, meta, res_loc);
 		}
+		ModelResourceLocation res_loc=new ModelResourceLocation(SodiumCraft.MODID+":potato_battery", "inventory");
+		ModelLoader.setCustomModelResourceLocation(SodiumCraft.itemPotatoBattery, 0, res_loc);
+		res_loc=new ModelResourceLocation(SodiumCraft.MODID+":silver_battery", "inventory");
+		ModelLoader.setCustomModelResourceLocation(SodiumCraft.itemSilverBattery, 0, res_loc);
 	}
 }

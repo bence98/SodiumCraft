@@ -8,3 +8,8 @@ item.itemSodium.4.name=Sodium Carbonate
 item.itemSodium.5.name=Steamed wood
 item.itemSodium.6.name=Sodium nitrate
 item.itemSodium.7.name=Nitric acid
+
+item.itemPotatoBattery.name=Cu-Na-Potato Battery
+item.itemSilverBattery.name=Ag-Na-Al Battery
+
+tooltip.battery.energy=Energy: %d/%d

@@ -19,6 +19,8 @@ import com.pam.harvestcraft.item.ItemRegistry;
 import cofh.core.util.helpers.ItemHelper;
 import cofh.thermalexpansion.util.managers.machine.SmelterManager;
 import cofh.thermalfoundation.init.TFItems;
+import csokicraft.forge.sodiumcraft.battery.ItemSodiumPotatoBattery;
+import csokicraft.forge.sodiumcraft.battery.ItemSodiumSilverBattery;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Loader;
@@ -35,11 +37,13 @@ import mekanism.api.gas.*;
 public class SodiumCraft
 {
 	public static final String MODID = "sodiumcraft";
-	public static final String VERSION = "1.2.1";
+	public static final String VERSION = "1.3";
 
 	@SidedProxy(serverSide="csokicraft.forge.sodiumcraft.CommonProxy", clientSide="csokicraft.forge.sodiumcraft.ClientProxy")
 	public static CommonProxy proxy;
 	public static Item itemSodium = new ItemSodium().setCreativeTab(CreativeTabs.MATERIALS).setRegistryName("sodium");
+	public static Item itemPotatoBattery=new ItemSodiumPotatoBattery().setRegistryName("potato_battery").setCreativeTab(CreativeTabs.TOOLS);
+	public static Item itemSilverBattery=new ItemSodiumSilverBattery().setRegistryName("silver_battery").setCreativeTab(CreativeTabs.TOOLS);
 
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent e){
@@ -124,34 +128,43 @@ public class SodiumCraft
 			SmelterManager.addRecipe(800, new ItemStack(itemSodium, 16, 1), new ItemStack(Items.SKULL, 1, i), new ItemStack(Items.ROTTEN_FLESH, 16));
 		SmelterManager.addRecipe(800, new ItemStack(itemSodium, 8, 1), new ItemStack(Items.SPIDER_EYE), new ItemStack(Items.ROTTEN_FLESH, 8));
 		SmelterManager.addRecipe(800, new ItemStack(itemSodium, 12, 1), new ItemStack(Items.FERMENTED_SPIDER_EYE), new ItemStack(Items.ROTTEN_FLESH, 12));
-		/*
-		//Potato battery Overhauled Edition
-		GameRegistry.addRecipe(new ShapedOreRecipe(TEItems.capacitorPotato,
-				"scs", "sps", "scs",
-				's', NaOH,
-				'p', Items.POTATO,
-				'c', "nuggetCopper"
-			));
-		
-		GameRegistry.addRecipe(new ShapedOreRecipe(TEItems.capacitorPotato,
-				"scs", "sps", "scs",
-				's', NaOH,
-				'p', Items.POISONOUS_POTATO,
-				'c', "nuggetCopper"
-			));
-		*/
 	}
 	
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> evt){
 		IForgeRegistry<Item> reg=evt.getRegistry();
 		reg.register(itemSodium);
+		reg.register(itemPotatoBattery);
+		reg.register(itemSilverBattery);
 	}
 	
 	@SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> evt){
+		IForgeRegistry<IRecipe> reg=evt.getRegistry();
+		ResourceLocation locSilverBattery=new ResourceLocation(MODID, "battery_silver");
+		ShapedOreRecipe recSilverBattery1=new ShapedOreRecipe(locSilverBattery,
+				new ItemStack(itemSilverBattery),
+				"isa", "isa", "ttt",
+				'i', "ingotSilver",
+				's', NaOH,
+				'a', "ingotAluminum",
+				't', "stone");
+		recSilverBattery1.setRegistryName(new ResourceLocation(MODID, "battery_silver_aluminum"));
+		recSilverBattery1.setMirrored(true);
+		reg.register(recSilverBattery1);
+		
+		ShapedOreRecipe recSilverBattery2=new ShapedOreRecipe(locSilverBattery,
+				new ItemStack(itemSilverBattery),
+				"isa", "isa", "ttt",
+				'i', "ingotSilver",
+				's', NaOH,
+				'a', "ingotAluminium",
+				't', "stone");
+		recSilverBattery2.setRegistryName(new ResourceLocation(MODID, "battery_silver_aluminium"));
+		recSilverBattery2.setMirrored(true);
+		reg.register(recSilverBattery2);
+		
 		if(Loader.isModLoaded("harvestcraft")){
-			IForgeRegistry<IRecipe> reg=evt.getRegistry();
 			
 			ShapelessOreRecipe recFoodFlour=new ShapelessOreRecipe(new ResourceLocation(MODID, "dough_foodflour"),
 					new ItemStack(ItemRegistry.doughItem, 2),

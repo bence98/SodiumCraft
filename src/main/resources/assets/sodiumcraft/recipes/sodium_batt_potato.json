@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "sodiumcraft:potato_battery"
+  },
+  "pattern": [
+    "scs",
+    "sps",
+    "scs"
+  ],
+  "key": {
+    "c": {
+      "type": "forge:ore_dict",
+      "ore": "nuggetCopper"
+    },
+    "s": {
+      "item": "sodiumcraft:sodium",
+      "data": 1
+    },
+    "p": {
+      "item": "minecraft:potato"
+    }
+  },
+  "type": "forge:ore_shaped"
+}
