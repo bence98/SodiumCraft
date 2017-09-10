@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "sodiumcraft:items/itemPotatoBattery"
+        "layer0": "sodiumcraft:items/potato_battery"
     }
 }
