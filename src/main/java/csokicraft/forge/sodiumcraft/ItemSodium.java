@@ -5,15 +5,11 @@ import net.minecraft.item.*;
 import net.minecraft.util.NonNullList;
 
 public class ItemSodium extends Item{
-	public static int META_COUNT=8;
+	public static int META_COUNT=11;
 	
 	public ItemSodium(){
 		hasSubtypes = true;
-		setUnlocalizedName(getName());
-	}
-	
-	private String getName(){
-		return "itemSodium";
+		setUnlocalizedName("itemSodium");
 	}
 	
 	@Override
@@ -23,7 +19,7 @@ public class ItemSodium extends Item{
 	
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> l){
-		if(tab.equals(getCreativeTab()))
+		if(isInCreativeTab(tab))
 			for(int i=0;i<META_COUNT;i++){
 				l.add(new ItemStack(this, 1, i));
 			}

@@ -19,8 +19,7 @@ import com.pam.harvestcraft.item.ItemRegistry;
 import cofh.core.util.helpers.ItemHelper;
 import cofh.thermalexpansion.util.managers.machine.SmelterManager;
 import cofh.thermalfoundation.init.TFItems;
-import csokicraft.forge.sodiumcraft.battery.ItemSodiumPotatoBattery;
-import csokicraft.forge.sodiumcraft.battery.ItemSodiumSilverBattery;
+import csokicraft.forge.sodiumcraft.battery.*;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Loader;
@@ -31,13 +30,14 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import mekanism.api.gas.*;
+import mekanism.common.MekanismItems;
 
 @Mod(modid = SodiumCraft.MODID, version = SodiumCraft.VERSION, dependencies="required-after:mekanism@[1.12.2-9.4,);required-after:thermalexpansion@[5.3,)")
 @EventBusSubscriber
 public class SodiumCraft
 {
 	public static final String MODID = "sodiumcraft";
-	public static final String VERSION = "1.3.2";
+	public static final String VERSION = "1.3.3";
 
 	@SidedProxy(serverSide="csokicraft.forge.sodiumcraft.CommonProxy", clientSide="csokicraft.forge.sodiumcraft.ClientProxy")
 	public static CommonProxy proxy;
@@ -128,6 +128,16 @@ public class SodiumCraft
 			SmelterManager.addRecipe(800, new ItemStack(itemSodium, 16, 1), new ItemStack(Items.SKULL, 1, i), new ItemStack(Items.ROTTEN_FLESH, 16));
 		SmelterManager.addRecipe(800, new ItemStack(itemSodium, 8, 1), new ItemStack(Items.SPIDER_EYE), new ItemStack(Items.ROTTEN_FLESH, 8));
 		SmelterManager.addRecipe(800, new ItemStack(itemSodium, 12, 1), new ItemStack(Items.FERMENTED_SPIDER_EYE), new ItemStack(Items.ROTTEN_FLESH, 12));
+
+		//Aluminium sulfide
+		imcTag = new NBTTagCompound();
+		imcTag.setTag("input", AlOH3.writeToNBT(new NBTTagCompound()));
+		imcTag.setTag("gasType", new GasStack(GasRegistry.getGas("sulfuricacid"), 100).write(new NBTTagCompound()));
+		imcTag.setTag("output", Al_SO4.writeToNBT(new NBTTagCompound()));
+		FMLInterModComms.sendMessage("mekanism", "ChemicalInjectionChamberRecipe", imcTag);
+		
+		//Fireproof Polyethylene sheets
+		SmelterManager.addRecipe(800, new ItemStack(Al_SO4.getItem(), 12, Al_SO4.getItemDamage()), new ItemStack(MekanismItems.Polyethene, 4, 2), firePE);
 	}
 	
 	@SubscribeEvent
@@ -164,8 +174,10 @@ public class SodiumCraft
 		recSilverBattery2.setMirrored(true);
 		reg.register(recSilverBattery2);
 		
+		SodiumItems.addFiremanSuitRecipes(reg);
+		SodiumItems.addConcreteRecipes(reg);
+		
 		if(Loader.isModLoaded("harvestcraft")){
-			
 			ShapelessOreRecipe recFoodFlour=new ShapelessOreRecipe(new ResourceLocation(MODID, "dough_foodflour"),
 					new ItemStack(ItemRegistry.doughItem, 2),
 					NaHCO3, "listAllwater", "toolMixingbowl", "foodFlour");
@@ -177,6 +189,14 @@ public class SodiumCraft
 					NaHCO3, "listAllwater", "toolMixingbowl", "dustWheat");
 			recDustWheat.setRegistryName(recDustWheat.getGroup());
 			reg.register(recDustWheat);
+		}
+		
+		if(Loader.isModLoaded("ic2")){
+			ShapelessOreRecipe recCFpowder=new ShapelessOreRecipe(new ResourceLocation(MODID, "cf_powder"),
+					new ItemStack(Item.getByNameOrId("ic2:crafting"), 2, 25),
+					Al_SO4, NaHCO3, "dustStone", "dustStone", "dustStone", "dustStone");
+			recCFpowder.setRegistryName(recCFpowder.getGroup());
+			reg.register(recCFpowder);
 		}
 	}
 	

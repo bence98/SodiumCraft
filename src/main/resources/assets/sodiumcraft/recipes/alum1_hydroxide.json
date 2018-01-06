@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "sodiumcraft:sodium",
+    "data": 8
+  },
+  "pattern": [
+    "sss",
+    "sAs",
+    "sss"
+  ],
+  "key": {
+    "A": {
+      "type": "forge:ore_dict",
+      "ore": "ingotAluminum"
+    },
+    "s": {
+      "item": "sodiumcraft:sodium",
+      "data": 1
+    }
+  },
+  "type": "forge:ore_shaped"
+}
