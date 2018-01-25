@@ -37,11 +37,12 @@ import mekanism.common.MekanismItems;
 public class SodiumCraft
 {
 	public static final String MODID = "sodiumcraft";
-	public static final String VERSION = "1.3.3";
+	public static final String VERSION = "1.3.4";
 
 	@SidedProxy(serverSide="csokicraft.forge.sodiumcraft.CommonProxy", clientSide="csokicraft.forge.sodiumcraft.ClientProxy")
 	public static CommonProxy proxy;
-	public static Item itemSodium = new ItemSodium().setCreativeTab(CreativeTabs.MATERIALS).setRegistryName("sodium");
+	public static ItemSodium itemSodium =(ItemSodium)new ItemSodium(11).setUnlocalizedName("itemSodium").setCreativeTab(CreativeTabs.MATERIALS).setRegistryName("sodium");
+	public static ItemSodium itemNaFood =(ItemSodium)new ItemSodium(6).setUnlocalizedName("itemNaFood").setCreativeTab(CreativeTabs.FOOD).setRegistryName("food");
 	public static Item itemPotatoBattery=new ItemSodiumPotatoBattery().setRegistryName("potato_battery").setCreativeTab(CreativeTabs.TOOLS);
 	public static Item itemSilverBattery=new ItemSodiumSilverBattery().setRegistryName("silver_battery").setCreativeTab(CreativeTabs.TOOLS);
 
@@ -144,6 +145,7 @@ public class SodiumCraft
 	public static void registerItems(RegistryEvent.Register<Item> evt){
 		IForgeRegistry<Item> reg=evt.getRegistry();
 		reg.register(itemSodium);
+		reg.register(itemNaFood);
 		reg.register(itemPotatoBattery);
 		reg.register(itemSilverBattery);
 	}
@@ -174,8 +176,8 @@ public class SodiumCraft
 		recSilverBattery2.setMirrored(true);
 		reg.register(recSilverBattery2);
 		
-		SodiumItems.addFiremanSuitRecipes(reg);
-		SodiumItems.addConcreteRecipes(reg);
+		SodiumItems.addCraftRecipes(reg);
+		SodiumItems.addSmelting();
 		
 		if(Loader.isModLoaded("harvestcraft")){
 			ShapelessOreRecipe recFoodFlour=new ShapelessOreRecipe(new ResourceLocation(MODID, "dough_foodflour"),

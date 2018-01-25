@@ -7,6 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.*;
@@ -23,9 +24,30 @@ public class SodiumItems{
 							HNO3  =new ItemStack(SodiumCraft.itemSodium, 1, 7),
 							AlOH3 =new ItemStack(SodiumCraft.itemSodium, 1, 8),
 							Al_SO4=new ItemStack(SodiumCraft.itemSodium, 1, 9),
-							firePE=new ItemStack(SodiumCraft.itemSodium, 1, 10);
+							firePE=new ItemStack(SodiumCraft.itemSodium, 1, 10),
+							
+							beefNa=new ItemStack(SodiumCraft.itemNaFood, 1, 0),
+							porkNa=new ItemStack(SodiumCraft.itemNaFood, 1, 1),
+							chckNa=new ItemStack(SodiumCraft.itemNaFood, 1, 2),
+							fishNa=new ItemStack(SodiumCraft.itemNaFood, 1, 3),
+							rbbtNa=new ItemStack(SodiumCraft.itemNaFood, 1, 4),
+							mttnNa=new ItemStack(SodiumCraft.itemNaFood, 1, 5);
 
-	public static void addConcreteRecipes(IForgeRegistry<IRecipe> reg){
+	public static void addCraftRecipes(IForgeRegistry<IRecipe> reg) {
+		addFiremanSuitRecipes(reg);
+		addConcreteRecipes(reg);
+	}
+
+	public static void addSmelting(){
+		FurnaceRecipes.instance().addSmeltingRecipe(beefNa, new ItemStack(Items.COOKED_BEEF), .35f);
+		FurnaceRecipes.instance().addSmeltingRecipe(porkNa, new ItemStack(Items.COOKED_PORKCHOP), .35f);
+		FurnaceRecipes.instance().addSmeltingRecipe(chckNa, new ItemStack(Items.COOKED_CHICKEN), .35f);
+		FurnaceRecipes.instance().addSmeltingRecipe(fishNa, new ItemStack(Items.COOKED_FISH), .35f);
+		FurnaceRecipes.instance().addSmeltingRecipe(rbbtNa, new ItemStack(Items.COOKED_RABBIT), .35f);
+		FurnaceRecipes.instance().addSmeltingRecipe(mttnNa, new ItemStack(Items.COOKED_MUTTON), .35f);
+	}
+
+	private static void addConcreteRecipes(IForgeRegistry<IRecipe> reg){
 		for(EnumDyeColor color:EnumDyeColor.values()){
 			ItemStack concrete =new ItemStack(Blocks.CONCRETE_POWDER, 8, color.getMetadata());
 			ShapelessOreRecipe rec=new ShapelessOreRecipe(new ResourceLocation(MODID, "concrete"),
@@ -36,7 +58,7 @@ public class SodiumItems{
 		}
 	}
 	
-	public static void addFiremanSuitRecipes(IForgeRegistry<IRecipe> reg){
+	private static void addFiremanSuitRecipes(IForgeRegistry<IRecipe> reg){
 		ItemStack helmStack=new ItemStack(Items.IRON_HELMET);
 		helmStack.addEnchantment(Enchantments.FIRE_PROTECTION, 5);
 		helmStack.addEnchantment(Enchantments.UNBREAKING, 3);

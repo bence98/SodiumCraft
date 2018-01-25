@@ -12,6 +12,13 @@ item.itemSodium.8.name=Aluminium hydroxide
 item.itemSodium.9.name=Aluminium sulfate
 item.itemSodium.10.name=Fireproof PE sheet
 
+item.itemNaFood.0.name=Salted beef filet
+item.itemNaFood.1.name=Salted pork filet
+item.itemNaFood.2.name=Salted chicken filet
+item.itemNaFood.3.name=Salted fish filet
+item.itemNaFood.4.name=Salted rabbit filet
+item.itemNaFood.5.name=Salted mutton filet
+
 item.itemPotatoBattery.name=Cu-Na-Potato Battery
 item.itemSilverBattery.name=Ag-Na-Al Battery
 

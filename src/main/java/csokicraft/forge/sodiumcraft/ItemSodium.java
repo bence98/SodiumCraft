@@ -5,11 +5,11 @@ import net.minecraft.item.*;
 import net.minecraft.util.NonNullList;
 
 public class ItemSodium extends Item{
-	public static int META_COUNT=11;
+	public int META_COUNT=11;
 	
-	public ItemSodium(){
+	public ItemSodium(int metas){
 		hasSubtypes = true;
-		setUnlocalizedName("itemSodium");
+		META_COUNT=metas;
 	}
 	
 	@Override
