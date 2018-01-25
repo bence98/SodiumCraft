@@ -24,3 +24,10 @@ run
 libs
 libs-obf
 libs-dis
+
+## Ignore everything but `src` and Gradle files
+*
+!src
+!src/*
+!build.gradle
+!gradle.properties
