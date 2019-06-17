@@ -5,13 +5,13 @@
   },
   "ingredients": [
     {
-      "item": "sodiumcraft:sodium",
-      "data": 1
+      "type": "forge:ore_dict",
+      "ore": "dustSodiumHydroxide"
     },
     {
       "item": "sodiumcraft:sodium",
       "data": 7
     }
   ],
-  "type": "minecraft:crafting_shapeless"
+  "type": "forge:ore_shapeless"
 }

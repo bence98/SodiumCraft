@@ -37,7 +37,7 @@ import mekanism.common.MekanismItems;
 public class SodiumCraft
 {
 	public static final String MODID = "sodiumcraft";
-	public static final String VERSION = "1.3.4";
+	public static final String VERSION = "1.3.5";
 
 	@SidedProxy(serverSide="csokicraft.forge.sodiumcraft.CommonProxy", clientSide="csokicraft.forge.sodiumcraft.ClientProxy")
 	public static CommonProxy proxy;
@@ -62,12 +62,21 @@ public class SodiumCraft
 		imcTag.setTag("output", Na.writeToNBT(new NBTTagCompound()));
 		FMLInterModComms.sendMessage("mekanism", "ChemicalCrystallizerRecipe", imcTag);
 		
+		//Sodium oredict
+		OreDictionary.registerOre("dustSodium", Na);
+		
+		//Sodium sulfide oredict
+		OreDictionary.registerOre("dustSodiumSulfide", NaS);
+		
 		//Sodium hydration
 		imcTag = new NBTTagCompound();
 		imcTag.setTag("input", Na.writeToNBT(new NBTTagCompound()));
 		imcTag.setTag("gasType", new GasStack(GasRegistry.getGas("water"), 100).write(new NBTTagCompound()));
 		imcTag.setTag("output", NaOH.writeToNBT(new NBTTagCompound()));
 		FMLInterModComms.sendMessage("mekanism", "ChemicalInjectionChamberRecipe", imcTag);
+
+		//Sodium hydroxide oredict
+		OreDictionary.registerOre("dustSodiumHydroxide", NaOH);
 		
 		//wood steaming
 		for(int i=0;i<4;i++){
@@ -92,6 +101,12 @@ public class SodiumCraft
 		imcTag.setTag("gasType", new GasStack(GasRegistry.getGas("water"), 100).write(new NBTTagCompound()));
 		imcTag.setTag("output", NaHCO3.writeToNBT(new NBTTagCompound()));
 		FMLInterModComms.sendMessage("mekanism", "ChemicalInjectionChamberRecipe", imcTag);
+
+		//Sodium carbonate oredict
+		OreDictionary.registerOre("dustSodiumCarbonate", Na2CO3);
+		
+		//Sodium bicarbonate oredict
+		OreDictionary.registerOre("dustSodiumBicarbonate", NaHCO3);
 		
 		//Nitric acid production
 		imcTag = new NBTTagCompound();
@@ -100,6 +115,7 @@ public class SodiumCraft
 		FMLInterModComms.sendMessage("mekanism", "EnrichmentChamberRecipe", imcTag);
 		
 		//Sodium nitrate oredict
+		OreDictionary.registerOre("dustSodiumNitrate", NaNO3);
 		OreDictionary.registerOre("dustSaltpeter", NaNO3);
 		
 		//Aluminum processing
@@ -130,12 +146,18 @@ public class SodiumCraft
 		SmelterManager.addRecipe(800, new ItemStack(itemSodium, 8, 1), new ItemStack(Items.SPIDER_EYE), new ItemStack(Items.ROTTEN_FLESH, 8));
 		SmelterManager.addRecipe(800, new ItemStack(itemSodium, 12, 1), new ItemStack(Items.FERMENTED_SPIDER_EYE), new ItemStack(Items.ROTTEN_FLESH, 12));
 
-		//Aluminium sulfide
+		//Aluminium sulfate
 		imcTag = new NBTTagCompound();
 		imcTag.setTag("input", AlOH3.writeToNBT(new NBTTagCompound()));
 		imcTag.setTag("gasType", new GasStack(GasRegistry.getGas("sulfuricacid"), 100).write(new NBTTagCompound()));
 		imcTag.setTag("output", Al_SO4.writeToNBT(new NBTTagCompound()));
 		FMLInterModComms.sendMessage("mekanism", "ChemicalInjectionChamberRecipe", imcTag);
+
+		//Aluminium hydroxide oredict
+		OreDictionary.registerOre("dustAluminiumHydroxide", AlOH3);
+		
+		//Aluminium sulfate oredict
+		OreDictionary.registerOre("dustAluminiumSulfate", Al_SO4);
 		
 		//Fireproof Polyethylene sheets
 		SmelterManager.addRecipe(800, new ItemStack(Al_SO4.getItem(), 12, Al_SO4.getItemDamage()), new ItemStack(MekanismItems.Polyethene, 4, 2), firePE);
@@ -158,7 +180,7 @@ public class SodiumCraft
 				new ItemStack(itemSilverBattery),
 				"isa", "isa", "ttt",
 				'i', "ingotSilver",
-				's', NaOH,
+				's', "dustSodiumHydroxide",
 				'a', "ingotAluminum",
 				't', "stone");
 		recSilverBattery1.setRegistryName(new ResourceLocation(MODID, "battery_silver_aluminum"));
@@ -169,7 +191,7 @@ public class SodiumCraft
 				new ItemStack(itemSilverBattery),
 				"isa", "isa", "ttt",
 				'i', "ingotSilver",
-				's', NaOH,
+				's', "dustSodiumHydroxide",
 				'a', "ingotAluminium",
 				't', "stone");
 		recSilverBattery2.setRegistryName(new ResourceLocation(MODID, "battery_silver_aluminium"));

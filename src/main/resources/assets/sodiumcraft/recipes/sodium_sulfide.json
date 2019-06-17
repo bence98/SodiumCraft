@@ -5,8 +5,8 @@
   },
   "ingredients": [
     {
-      "item": "sodiumcraft:sodium",
-      "data": 0
+      "type": "forge:ore_dict",
+      "ore": "dustSodium"
     },
     {
       "type": "forge:ore_dict",

@@ -5,12 +5,12 @@
   },
   "ingredients": [
     {
-      "item": "sodiumcraft:sodium",
-      "data": 6
+      "type": "forge:ore_dict",
+      "ore": "dustSaltpeter"
     },
     {
       "item": "mekanism:substrate"
     }
   ],
-  "type": "minecraft:crafting_shapeless"
+  "type": "forge:ore_shapeless"
 }

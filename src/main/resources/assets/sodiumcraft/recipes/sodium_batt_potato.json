@@ -13,8 +13,8 @@
       "ore": "nuggetCopper"
     },
     "s": {
-      "item": "sodiumcraft:sodium",
-      "data": 1
+      "type": "forge:ore_dict",
+      "ore": "dustSodiumHydroxide"
     },
     "p": {
       "item": "minecraft:potato"
